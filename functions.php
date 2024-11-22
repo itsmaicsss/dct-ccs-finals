@@ -119,23 +119,21 @@ function getSubjectById($id) {
     return $subject;
 }
 
-function updateSubjectName($id, $subjectName) {
+function deleteSubject($subjectId) {
     $conn = openCon();
-    $sql = "UPDATE subjects SET subject_name = ? WHERE id = ?";
+
+    // Prepare the SQL statement to delete the subject by ID
+    $sql = "DELETE FROM subjects WHERE id = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("si", $subjectName, $id);
-    
+    $stmt->bind_param("i", $subjectId);
+
     if ($stmt->execute()) {
-        debugLog("Subject with ID $id updated successfully to $subjectName.");
-        $stmt->close();
-        closeCon($conn);
-        return true;
+        debugLog("Subject with ID $subjectId deleted successfully.");
     } else {
-        debugLog("Error updating subject with ID $id: " . $stmt->error);
+        debugLog("Error deleting subject with ID $subjectId: " . $stmt->error);
     }
 
     $stmt->close();
     closeCon($conn);
-    return false;
 }
 ?>
