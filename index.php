@@ -3,7 +3,7 @@
 require_once 'functions.php';
 
 // Start the session
-session_start();
+//session_start();
 
 // Error message initialization
 $error_message = '';
